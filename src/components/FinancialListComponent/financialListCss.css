@@ -1,0 +1,53 @@
+.container-flex {
+  display: grid;
+  grid-template-columns: 5% 43% 4% 43% 5%;
+}
+.container-table-income {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+.container-table-income div {
+  font-size: 20px;
+  margin: 10px;
+  font-weight: bold;
+}
+.container-table-expense div {
+  font-size: 20px;
+  margin: 10px;
+  font-weight: bold;
+}
+.container-table-expense {
+  grid-column-start: 4;
+  grid-column-end: 5;
+}
+
+.container-flex > div {
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 18px;
+}
+td {
+  padding: 5px;
+}
+td button {
+  float: right;
+}
+
+.table-income tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.table-income tr:nth-child(odd) {
+  background-color: dodgerblue;
+  color: white;
+}
+.table-expense tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.table-expense tr:nth-child(odd) {
+  background-color: crimson;
+  color: white;
+}

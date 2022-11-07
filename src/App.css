@@ -36,3 +36,58 @@
     transform: rotate(360deg);
   }
 }
+.container {
+  padding: 10px;
+}
+.header-container {
+  background-image: url(../public/headerImage.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+.date-box {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 20px;
+
+  /*margin: 20px;*/
+}
+.budget-box {
+  font-size: 25px;
+  font-weight: bold;
+  gap: 30px;
+}
+.container-row {
+  width: 45%;
+}
+.container-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 50% 30% 20%;
+}
+.container-50 {
+  width: 30%;
+  padding: 10px;
+}
+.expense-box {
+  background: crimson;
+  margin: 10px;
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+  padding: 3px;
+}
+.income-box {
+  background: dodgerblue;
+  margin: 10px;
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+  padding: 3px;
+}
