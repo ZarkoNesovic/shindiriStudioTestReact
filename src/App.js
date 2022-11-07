@@ -149,7 +149,7 @@ function App() {
         return newIncomeList;
       });
       setBudget((Budget) => {
-        let test = income;
+        let test = expense;
         if (!income) {
           test = 0;
         }
