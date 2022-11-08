@@ -36,24 +36,23 @@ const header = (props) => {
 
   return (
     <div className="header-container">
-      <div className="container-row">
+      <div className="budget-container budget-text">
         <div className="date-box">{returnDateString()}</div>
         <div className="budget-box">
           {" "}
           {returnNumberSign(props.budget) + Math.abs(props.budget)}
         </div>
       </div>
-      <div className="container-50">
-        <div className="container-grid income-box">
-          <div>Income</div>
-          <div>+ {props.income}</div>
-        </div>
-        <div className="container-grid expense-box">
-          <div>Expense</div>
-          <div className="container-row2-grid-2">- {props.expense}</div>
-          <div className="container-row2-grid-2">
-            {percentageCalculationFunction(props.income, props.expense) + "%"}
-          </div>
+
+      <div className="grid-container-3 income-container">
+        <div className="grid-item-1">Income</div>
+        <div className="grid-item-2">+ {props.income}</div>
+      </div>
+      <div className="grid-container-3 expense-container">
+        <div className="grid-item-1">Expense</div>
+        <div className="grid-item-2">- {props.expense}</div>
+        <div className="grid-item-3">
+          {percentageCalculationFunction(props.income, props.expense) + "%"}
         </div>
       </div>
     </div>

@@ -26,10 +26,11 @@ function App() {
   const updateLocalStorage = (state) => {
     localStorage.setItem("income", state.income);
     localStorage.setItem("incomeList", JSON.stringify(state.incomeList));
-    localStorage.setItem("expense", state.expense);
+    localStorage.setItem("expense", state.budget);
     localStorage.setItem("expenseList", JSON.stringify(state.expenseList));
     localStorage.setItem("budget", state.budget);
   };
+
   const update = (state) => {
     let newObj = {
       income: state.income,
@@ -46,23 +47,26 @@ function App() {
       case "add_income":
         state.income = state.income + parseFloat(action.payload.amount);
         state.incomeList = [action.payload, ...state.incomeList];
+        state.budget = state.budget + parseFloat(action.payload.amount);
         break;
       case "remove_income":
         state.income = state.income - parseFloat(action.payload.amount);
-
         state.incomeList = state.incomeList.filter((itemData) => {
           return itemData !== action.payload;
         });
+        state.budget = state.budget - parseFloat(action.payload.amount);
         break;
       case "add_expense":
         state.expense = state.expense + parseFloat(action.payload.amount);
         state.expenseList = [action.payload, ...state.expenseList];
+        state.budget = state.budget - parseFloat(action.payload.amount);
         break;
       case "remove_expense":
         state.expense = state.expense - parseFloat(action.payload.amount);
         state.expenseList = state.expenseList.filter((itemData) => {
           return itemData !== action.payload;
         });
+        state.budget = state.budget + parseFloat(action.payload.amount);
         break;
       default:
         break;
@@ -90,12 +94,13 @@ function App() {
     }
   };
   return (
-    <div>
+    <div className="app-container">
       <Header
         income={state.income}
         expense={state.expense}
         budget={state.budget}
       ></Header>
+
       <InputForm onFinancialDataChange={financialDataChangeHandeler} />
       <FinancialList
         incomeList={state.incomeList}

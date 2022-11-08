@@ -42,7 +42,11 @@ const FinancialListItem = (props) => {
 
       {canDisplay() && <td>{test}</td>}
       <td>
-        <button id={props.data.id} onClick={deleteFirstElementHandelerTest}>
+        <button
+          id={props.data.id}
+          onClick={deleteFirstElementHandelerTest}
+          className="btn-table"
+        >
           Remove
         </button>
       </td>

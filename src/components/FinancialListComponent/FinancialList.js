@@ -2,7 +2,7 @@ import FinancialListItem from "../FinancialListItemComponent/FinancialListItem";
 import "./financialListCss.css";
 const FinancialList = (props) => {
   return (
-    <div className="container-flex">
+    <div className="tables-container">
       <div className="container-table-income">
         <div>Income</div>
         <table className="table-income">
