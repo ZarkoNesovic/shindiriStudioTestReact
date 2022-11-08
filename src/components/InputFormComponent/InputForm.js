@@ -39,7 +39,7 @@ const InputForm = (props) => {
   }
   //TODO:ERROR MESSAGE FOR CUSTOMER
   return (
-    <div className="container">
+    <div className="form-container">
       <form action="" onSubmit={submitHandeler}>
         <select
           value={enteredType}

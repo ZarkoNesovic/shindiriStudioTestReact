@@ -1,6 +1,6 @@
 .container-flex {
   display: grid;
-  grid-template-columns: 5% 43% 4% 43% 5%;
+  grid-template-columns: 20% 28% 4% 28% 20%;
 }
 .container-table-income {
   grid-column-start: 2;

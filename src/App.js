@@ -1,219 +1,108 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import "./App.css";
 
 import InputForm from "./components/InputFormComponent/InputForm";
 import FinancialList from "./components/FinancialListComponent/FinancialList";
+import Header from "./components/HeaderComponent/Header";
 
 function App() {
-  const [budget, setBudget] = useState(() => {
-    const budgetFromLocalStorage = localStorage.getItem("budget");
-    return budgetFromLocalStorage !== null
-      ? parseInt(budgetFromLocalStorage)
-      : 0;
-  });
-  const [income, setIncome] = useState(() => {
-    const incomeFromLocalStorage = localStorage.getItem("income");
-    return incomeFromLocalStorage !== null
-      ? parseInt(incomeFromLocalStorage)
-      : 0;
-  });
-  const [expense, setExpense] = useState(() => {
-    const expenseFromLocalStorage = localStorage.getItem("expense");
-    return expenseFromLocalStorage !== null
-      ? parseInt(expenseFromLocalStorage)
-      : 0;
-  });
+  //Change use states for use reducer
 
-  const [incomeList, setIncomeList] = useState(() => {
-    const incomeListFromLocalStorage = localStorage.getItem("incomeList");
+  //Data init for reducer
+  const lsIncome = parseFloat(localStorage.getItem("income")) || 0;
+  const lsIncomeList = JSON.parse(localStorage.getItem("incomeList")) || [];
+  const lsExpemse = parseFloat(localStorage.getItem("expense")) || 0;
+  const lsExpenseList = JSON.parse(localStorage.getItem("expenseList")) || [];
+  const lsBudget = parseFloat(localStorage.getItem("budget")) || 0;
 
-    return incomeListFromLocalStorage !== null
-      ? JSON.parse(incomeListFromLocalStorage)
-      : [];
-  });
-  const [expenseList, setExpenseList] = useState(() => {
-    const expenseListFromLocalStorage = localStorage.getItem("expenseList");
-
-    return expenseListFromLocalStorage !== null
-      ? JSON.parse(expenseListFromLocalStorage)
-      : [];
-  });
-
-  const returnDateString = () => {
-    const date = new Date();
-    const monthString = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    let month = date.getMonth();
-    let year = date.getFullYear();
-    return "Available budget in " + monthString[month] + " " + year + ":";
+  const dataInitialization = {
+    income: lsIncome,
+    incomeList: lsIncomeList,
+    expense: lsExpemse,
+    expenseList: lsExpenseList,
+    budget: lsBudget,
   };
-
-  const returnNumberSign = (number) => {
-    let sign = "";
-    if (number > 0) sign = "+";
-    if (number < 0) sign = "-";
-    return sign;
+  console.log(dataInitialization);
+  const updateLocalStorage = (state) => {
+    localStorage.setItem("income", state.income);
+    localStorage.setItem("incomeList", JSON.stringify(state.incomeList));
+    localStorage.setItem("expense", state.expense);
+    localStorage.setItem("expenseList", JSON.stringify(state.expenseList));
+    localStorage.setItem("budget", state.budget);
   };
+  const update = (state) => {
+    let newObj = {
+      income: state.income,
+      expense: state.expense,
+      budget: state.income - state.expense,
+      incomeList: state.incomeList,
+      expenseList: state.expenseList,
+    };
+    return newObj;
+  };
+  const financialDataReducer = (state, action) => {
+    console.log(action.type);
+    switch (action.type) {
+      case "add_income":
+        state.income = state.income + parseFloat(action.payload.amount);
+        state.incomeList = [action.payload, ...state.incomeList];
+        break;
+      case "remove_income":
+        state.income = state.income - parseFloat(action.payload.amount);
 
-  const percentageCalculationFunction = (income, expense) => {
-    if (income === 0) {
-      return 0;
-    } else {
-      return Math.round((expense / income) * 100);
+        state.incomeList = state.incomeList.filter((itemData) => {
+          return itemData !== action.payload;
+        });
+        break;
+      case "add_expense":
+        state.expense = state.expense + parseFloat(action.payload.amount);
+        state.expenseList = [action.payload, ...state.expenseList];
+        break;
+      case "remove_expense":
+        state.expense = state.expense - parseFloat(action.payload.amount);
+        state.expenseList = state.expenseList.filter((itemData) => {
+          return itemData !== action.payload;
+        });
+        break;
+      default:
+        break;
     }
+    updateLocalStorage(state);
+    return update(state);
   };
+
+  const [state, dispatch] = useReducer(
+    financialDataReducer,
+    dataInitialization
+  );
 
   //TODO:Srediti brisanje iz lokalnog skladista
-  const deleteFirstElementHandeler = (id, type) => {
-    if (type === "income") {
-      let list = [...incomeList];
-      let indexToDelete = list.findIndex((listItem) => {
-        return listItem.id == id;
-      });
-      const amountToRemove = parseInt(list[indexToDelete].amount);
-      list.splice(indexToDelete, 1);
-      //console.log("index" + list[indexToDelete].amount + "-------------");
-      setIncome(() => {
-        const newIncome = income - amountToRemove;
-        localStorage.setItem("income", newIncome);
-        return newIncome;
-      });
-      setBudget(() => {
-        let local = budget;
-        if (!budget) {
-          local = 0;
-        }
-        let newBudget = local - amountToRemove;
-        console.log(newBudget);
-        localStorage.setItem("budget", newBudget);
-        return newBudget;
-      });
-
-      setIncomeList(() => {
-        localStorage.setItem("incomeList", JSON.stringify(list));
-        return list;
-      });
-    }
-    if (type === "expense") {
-      let list = [...expenseList];
-      let indexToDelete = list.findIndex((listItem) => {
-        return listItem.id == id;
-      });
-      const amountToRemove = parseInt(list[indexToDelete].amount);
-      list.splice(indexToDelete, 1);
-      setExpense(() => {
-        const newExpense = expense - amountToRemove;
-        localStorage.setItem("expense", newExpense);
-        return newExpense;
-      });
-      setBudget(() => {
-        let local = budget;
-        if (!budget) {
-          local = 0;
-        }
-        let newBudget = local + amountToRemove;
-        localStorage.setItem("budget", newBudget);
-        return newBudget;
-      });
-      setExpenseList(() => {
-        localStorage.setItem("expenseList", JSON.stringify(list));
-        return list;
-      });
-    }
-  };
+  const deleteFirstElementHandeler = (id, type) => {};
 
   const financialDataChangeHandeler = (financialData) => {
-    if (financialData.type == "income") {
-      //Update income, income list,expense list(percentages) and budget
-      setIncome((income) => {
-        const newIncome = income + parseInt(financialData.amount);
-        localStorage.setItem("income", newIncome);
-        return newIncome;
-      });
-      setIncomeList((incomeList) => {
-        const newIncomeList = [financialData, ...incomeList];
-        console.log(JSON.stringify([financialData, ...incomeList]));
-        localStorage.setItem("incomeList", JSON.stringify(newIncomeList));
-        return newIncomeList;
-      });
-      setBudget((Budget) => {
-        let test = expense;
-        if (!income) {
-          test = 0;
-        }
-        const newBudget = income - test + parseInt(financialData.amount);
-        localStorage.setItem("budget", newBudget);
-        return newBudget;
-      });
+    if (financialData.type === "income") {
+      console.log("On data change");
+      console.log(financialData.type === "income");
+      dispatch({ type: "add_income", payload: financialData });
     }
-    if (financialData.type == "expense") {
-      //Update expense, expense list(percentage changes), budget
-      setExpense((income) => {
-        const newExpense = expense + parseInt(financialData.amount);
-        localStorage.setItem("expense", newExpense);
-        return newExpense;
-      });
-      setExpenseList((expenseList) => {
-        const newExpenseList = [financialData, ...expenseList];
-        //console.log(JSON.stringify([financialData, ...expenseList]));
-        localStorage.setItem("expenseList", JSON.stringify(newExpenseList));
-        return newExpenseList;
-      });
-      setBudget((budget) => {
-        let test = income;
-        if (!income) {
-          test = 0;
-        }
-        const newBudget = income - expense - parseInt(financialData.amount);
-        localStorage.setItem("budget", newBudget);
-
-        return newBudget;
-      });
+    if (financialData.type === "expense") {
+      dispatch({ type: "add_expense", payload: financialData });
     }
   };
-
   return (
-    <div className="App">
-      <div className="header-container">
-        <div className="container-row">
-          <div className="date-box">{returnDateString()}</div>
-          <div className="budget-box">
-            {" "}
-            {returnNumberSign(budget) + Math.abs(budget)}
-          </div>
-        </div>
-        <div className="container-50">
-          <div className="container-grid income-box">
-            <div>Income</div>
-            <div>+ {income}</div>
-          </div>
-          <div className="container-grid expense-box">
-            <div>Expense</div>
-            <div className="container-row2-grid-2">- {expense}</div>
-            <div className="container-row2-grid-2">
-              {percentageCalculationFunction(income, expense) + "%"}
-            </div>
-          </div>
-        </div>
-      </div>
+    <div>
+      <Header
+        income={state.income}
+        expense={state.expense}
+        budget={state.budget}
+      ></Header>
       <InputForm onFinancialDataChange={financialDataChangeHandeler} />
       <FinancialList
-        incomeList={incomeList}
-        expenseList={expenseList}
-        income={income}
+        incomeList={state.incomeList}
+        expenseList={state.expenseList}
+        income={state.income}
         deleteFirstElementHandeler={deleteFirstElementHandeler}
+        dispatch={dispatch}
       />
     </div>
   );

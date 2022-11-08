@@ -33,3 +33,11 @@
 .form-control:focus-visible {
   outline-color: orangered;
 }
+
+.form-container {
+  display: flex;
+  justify-content: space-around;
+}
+form {
+  width: 50%;
+}

@@ -1,4 +1,4 @@
-import FinancialListItem from "../FinancialListIteamComponent/FinancialListItem";
+import FinancialListItem from "../FinancialListItemComponent/FinancialListItem";
 import "./financialListCss.css";
 const FinancialList = (props) => {
   return (
@@ -12,6 +12,7 @@ const FinancialList = (props) => {
                 data={data}
                 key={data.id}
                 deleteFirstElementHandeler={props.deleteFirstElementHandeler}
+                dispatch={props.dispatch}
               />
             ))}
           </tbody>
@@ -27,6 +28,7 @@ const FinancialList = (props) => {
                 key={data.id}
                 income={props.income}
                 deleteFirstElementHandeler={props.deleteFirstElementHandeler}
+                dispatch={props.dispatch}
               />
             ))}
           </tbody>
