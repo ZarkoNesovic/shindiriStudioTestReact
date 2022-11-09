@@ -26,7 +26,7 @@ function App() {
   const updateLocalStorage = (state) => {
     localStorage.setItem("income", state.income);
     localStorage.setItem("incomeList", JSON.stringify(state.incomeList));
-    localStorage.setItem("expense", state.budget);
+    localStorage.setItem("expense", state.expense);
     localStorage.setItem("expenseList", JSON.stringify(state.expenseList));
     localStorage.setItem("budget", state.budget);
   };
@@ -39,6 +39,7 @@ function App() {
       incomeList: state.incomeList,
       expenseList: state.expenseList,
     };
+    updateLocalStorage(state);
     return newObj;
   };
   const financialDataReducer = (state, action) => {
@@ -71,7 +72,7 @@ function App() {
       default:
         break;
     }
-    updateLocalStorage(state);
+
     return update(state);
   };
 

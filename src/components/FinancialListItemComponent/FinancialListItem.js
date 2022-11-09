@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const FinancialListItem = (props) => {
+  const [isShown, setIsShown] = useState(false);
   const deleteFirstElementHandelerTest = () => {
     if (props.data.type === "expense") {
       props.dispatch({ type: "remove_expense", payload: props.data });
@@ -36,16 +37,18 @@ const FinancialListItem = (props) => {
   let test = returnPercentage();
 
   return (
-    <tr>
+    <tr
+      onMouseEnter={() => setIsShown(true)}
+      onMouseLeave={() => setIsShown(false)}
+    >
       <td>{props.data.comment}</td>
       <td>{returnAmountText()}</td>
-
       {canDisplay() && <td>{test}</td>}
       <td>
         <button
           id={props.data.id}
           onClick={deleteFirstElementHandelerTest}
-          className="btn-table"
+          className={!isShown ? "btn-hidden" : "btn-table"}
         >
           Remove
         </button>

@@ -25,7 +25,7 @@
   margin: 0px 20px 20px 20px;
   align-items: center;
   height: 40vh;
-  background-image: url(../public/modernArt.jpg);
+  background-image: url(../public/city.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -75,11 +75,14 @@
   font-weight: 700;
   text-align: center;
 }
+.budget-box {
+  margin-top: 50px;
+}
 .form-container {
   min-width: 700px;
-  width: 50%;
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 .form-control {
   margin: 15px;
@@ -108,7 +111,7 @@
 .tables-container {
   display: flex;
   flex-direction: row;
-  min-width: 700px;
+  min-width: 900px;
 }
 
 .container-table-income {
@@ -126,7 +129,6 @@
 .container-table-income div {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 10px;
 }
 .btn-expense {
   background-color: white;
@@ -164,6 +166,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   font-size: 18px;
+  table-layout: auto;
 }
 table tr {
   margin: 5px;
@@ -171,5 +174,15 @@ table tr {
   border-radius: 3px;
 }
 .btn-table {
+  float: right;
+}
+table tr td:first-child {
+  width: 100%;
+}
+table tr td {
+  padding: 5px;
+}
+.btn-hidden {
+  visibility: hidden;
   float: right;
 }
