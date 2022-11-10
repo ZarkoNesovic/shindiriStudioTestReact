@@ -3,7 +3,7 @@ import "./financialListCss.css";
 const FinancialList = (props) => {
   return (
     <div className="tables-container">
-      <div className="container-table-income">
+      <div className="container-table">
         <div>Income</div>
         <table className="table-income">
           <tbody>
@@ -18,7 +18,7 @@ const FinancialList = (props) => {
           </tbody>
         </table>
       </div>
-      <div className="container-table-expense">
+      <div className="container-table">
         <div>Expenses</div>
         <table className="table-expense">
           <tbody>
