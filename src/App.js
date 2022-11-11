@@ -22,7 +22,7 @@ function App() {
     expenseList: lsExpenseList,
     budget: lsBudget,
   };
-  console.log(dataInitialization);
+  //console.log(dataInitialization);
   const updateLocalStorage = (state) => {
     localStorage.setItem("income", state.income);
     localStorage.setItem("incomeList", JSON.stringify(state.incomeList));
@@ -43,7 +43,7 @@ function App() {
     return newObj;
   };
   const financialDataReducer = (state, action) => {
-    console.log(action.type);
+    //console.log(action.type);
     switch (action.type) {
       case "add_income":
         state.income = state.income + parseFloat(action.payload.amount);
@@ -82,17 +82,16 @@ function App() {
   );
 
   //TODO:Srediti brisanje iz lokalnog skladista
-  const deleteFirstElementHandeler = (id, type) => {};
 
   const financialDataChangeHandeler = (financialData) => {
+    let action = {};
     if (financialData.type === "income") {
-      console.log("On data change");
-      console.log(financialData.type === "income");
-      dispatch({ type: "add_income", payload: financialData });
+      action = { type: "add_income", payload: financialData };
     }
     if (financialData.type === "expense") {
-      dispatch({ type: "add_expense", payload: financialData });
+      action = { type: "add_expense", payload: financialData };
     }
+    dispatch(action);
   };
   return (
     <div className="app-container">
@@ -107,7 +106,6 @@ function App() {
         incomeList={state.incomeList}
         expenseList={state.expenseList}
         income={state.income}
-        deleteFirstElementHandeler={deleteFirstElementHandeler}
         dispatch={dispatch}
       />
     </div>

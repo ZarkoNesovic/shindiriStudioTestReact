@@ -3,12 +3,14 @@ import { useState } from "react";
 const FinancialListItem = (props) => {
   const [isShown, setIsShown] = useState(false);
   const deleteFirstElementHandelerTest = () => {
+    let action = {};
     if (props.data.type === "expense") {
-      props.dispatch({ type: "remove_expense", payload: props.data });
+      action = { type: "remove_expense", payload: props.data };
     }
     if (props.data.type === "income") {
-      props.dispatch({ type: "remove_income", payload: props.data });
+      action = { type: "remove_income", payload: props.data };
     }
+    props.dispatch(action);
   };
   const returnAmountText = () => {
     let sign = "+";

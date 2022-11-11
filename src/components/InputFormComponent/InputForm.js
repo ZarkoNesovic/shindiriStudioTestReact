@@ -5,7 +5,6 @@ const InputForm = (props) => {
   const [enteredType, setEnteredType] = useState("income");
   const [enteredComment, setEnteredComment] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
-  const [buttonColour, setButtonColour] = useState("red");
 
   const typeChangeHandeler = (event) => {
     setEnteredType(event.target.value);
