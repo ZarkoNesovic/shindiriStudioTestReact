@@ -9,34 +9,29 @@ const InputForm = (props) => {
   const typeChangeHandeler = (event) => {
     setEnteredType(event.target.value);
   };
+
   const commentChangeHandeler = (event) => {
-    //console.log(event.target.value);
     setEnteredComment(event.target.value);
   };
+
   const amountChangeHandeler = (event) => {
-    //console.log(event.target.value);
     setEnteredAmount(event.target.value);
   };
 
-  function submitHandeler(event) {
+  const submitHandeler = (event) => {
     event.preventDefault();
-
     //TODO:FORM VALIDATION BEFORE SUBMIT
-
     const financialData = {
       id: Math.random(),
       type: enteredType,
       comment: enteredComment,
       amount: enteredAmount,
     };
-
     props.onFinancialDataChange(financialData);
-
     setEnteredType("income");
     setEnteredAmount("");
     setEnteredComment("");
-  }
-  //TODO:ERROR MESSAGE FOR CUSTOMER
+  };
   return (
     <div className="form-container">
       <form action="" onSubmit={submitHandeler}>

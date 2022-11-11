@@ -6,9 +6,6 @@ import FinancialList from "./components/FinancialListComponent/FinancialList";
 import Header from "./components/HeaderComponent/Header";
 
 function App() {
-  //Change use states for use reducer
-
-  //Data init for reducer
   const lsIncome = parseFloat(localStorage.getItem("income")) || 0;
   const lsIncomeList = JSON.parse(localStorage.getItem("incomeList")) || [];
   const lsExpemse = parseFloat(localStorage.getItem("expense")) || 0;
@@ -22,7 +19,7 @@ function App() {
     expenseList: lsExpenseList,
     budget: lsBudget,
   };
-  //console.log(dataInitialization);
+
   const updateLocalStorage = (state) => {
     localStorage.setItem("income", state.income);
     localStorage.setItem("incomeList", JSON.stringify(state.incomeList));
@@ -42,8 +39,8 @@ function App() {
     updateLocalStorage(state);
     return newObj;
   };
+
   const financialDataReducer = (state, action) => {
-    //console.log(action.type);
     switch (action.type) {
       case "add_income":
         state.income = state.income + parseFloat(action.payload.amount);
@@ -72,7 +69,6 @@ function App() {
       default:
         break;
     }
-
     return update(state);
   };
 

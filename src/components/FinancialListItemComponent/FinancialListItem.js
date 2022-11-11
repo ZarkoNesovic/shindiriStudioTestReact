@@ -2,6 +2,7 @@ import { useState } from "react";
 
 const FinancialListItem = (props) => {
   const [isShown, setIsShown] = useState(false);
+
   const deleteFirstElementHandelerTest = () => {
     let action = {};
     if (props.data.type === "expense") {
@@ -12,6 +13,7 @@ const FinancialListItem = (props) => {
     }
     props.dispatch(action);
   };
+
   const returnAmountText = () => {
     let sign = "+";
     if (props.data.type === "expense") {
@@ -27,6 +29,7 @@ const FinancialListItem = (props) => {
       return 0 + "%";
     }
   };
+
   const canDisplay = () => {
     let bool = false;
     if (props.data.type === "expense") {
@@ -37,7 +40,6 @@ const FinancialListItem = (props) => {
     return bool;
   };
   let test = returnPercentage();
-
   return (
     <tr
       onMouseEnter={() => setIsShown(true)}
