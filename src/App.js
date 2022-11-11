@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from "react";
+import { useReducer } from "react";
 import "./App.css";
 
 import InputForm from "./components/InputFormComponent/InputForm";
@@ -100,7 +100,6 @@ function App() {
         expense={state.expense}
         budget={state.budget}
       ></Header>
-
       <InputForm onFinancialDataChange={financialDataChangeHandeler} />
       <FinancialList
         incomeList={state.incomeList}

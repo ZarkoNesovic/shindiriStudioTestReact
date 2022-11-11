@@ -77,7 +77,7 @@ const InputForm = (props) => {
         <input
           type="submit"
           value="Save"
-          className={enteredType == "income" ? "btn-income" : "btn-expense"}
+          className={enteredType === "income" ? "btn-income" : "btn-expense"}
         />
       </form>
     </div>

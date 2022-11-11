@@ -14,7 +14,7 @@ const FinancialListItem = (props) => {
   };
   const returnAmountText = () => {
     let sign = "+";
-    if (props.data.type == "expense") {
+    if (props.data.type === "expense") {
       sign = "-";
     }
     return sign + props.data.amount;
@@ -29,11 +29,11 @@ const FinancialListItem = (props) => {
   };
   const canDisplay = () => {
     let bool = false;
-    if (props.data.type == "expense") {
+    if (props.data.type === "expense") {
       bool = true;
     }
     console.log("Can display" + props.data.type);
-    console.log(props.data.type == "expense" && props.income);
+    console.log(props.data.type === "expense" && props.income);
     return bool;
   };
   let test = returnPercentage();
