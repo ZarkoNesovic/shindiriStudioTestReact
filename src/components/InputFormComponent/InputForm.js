@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./InputForm.css";
 
 const InputForm = (props) => {
   const [enteredType, setEnteredType] = useState("income");

@@ -1,5 +1,5 @@
 import FinancialListItem from "../FinancialListItemComponent/FinancialListItem";
-import "./financialListCss.css";
+
 const FinancialList = (props) => {
   return (
     <div className="tables-container">

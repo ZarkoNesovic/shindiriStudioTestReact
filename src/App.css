@@ -184,3 +184,9 @@ table tr td {
     flex-direction: column;
   }
 }
+.btn-table {
+  background-color: black;
+  border-color: whitesmoke;
+  border-radius: 5px;
+  color: #f2f2f2;
+}
